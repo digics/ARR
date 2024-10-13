@@ -1,40 +1,30 @@
-﻿## Intended Recipients
-Public
+﻿## Summary
 
+arr is the awk user-level library for works with an arrays:
 
+      - array joining functions: 
 
-## Summary
+            - best performance
 
-arr v1.0 
+            - large amount of data
 
-arr v1.0 is a library of the functions for effectively works with an arrays in AWK:
+            - ret::a          join single array
 
-	- array joining functions: 
+            - ret::as         join single array with separator
 
-		- best performance
+            - ret::ab         join array pair
 
-		- large amount of data
+            - ret::abs        join array-pairs with separator
 
-		- join single array
+      - array definition and data movement functions
 
-		- join single array with separator
+            - mov/def/let copy methods
 
-		- join array pair
+      - other array functions
 
-		- join array-pairs with separator
+            - arr::same
 
-	- array definition and data movement functions
-
-		- mov/def/let copy methods
-
-
-	- visualizing an array(s)
-
-		- dump single array
-
-		- dump array-pair
-
-	- other useful array functions
+            - arr::name
 
 ## How to use
 
@@ -42,16 +32,12 @@ Include file 'arr.lib' in your gawk project.
 
 Library isn't requiring initialization so the place of including library is not critical
 
-## Requirements
-
-uid.lib
-
 
 ## Extra
 
-File 'arr100_en.pdf' contains english documentation about this library.
+File 'arr_en.pdf' contains english documentation about this library.
 
-File 'arr100_ru.pdf' contains russian documentation about this library.
+File 'arr_ru.pdf' contains russian documentation about this library.
 
 
 
@@ -73,6 +59,6 @@ Denis Shirokov (digi_cs)
 
 *Github*:
 
-    https://github.com/digics/gawklib/tree/main
+    https://github.com/digics/ARR
 
 
