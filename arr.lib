@@ -1,0 +1,1183 @@
+
+# 450 + 200 + 200 + 60 + 50 + 100 - 50 - 50 == 950
+
+#_________________________________________________________________
+# ARR v1.0 ( 2024.9.17 ) #########################################
+#
+#	#-----------------#--------------------#
+#	#   INDEX JOINED	# DATA PASS #
+#	#-----------------#--------------------#
+#	#  127		#  1			   #
+#	#  116.7K		#  2			   #
+#	#  7.47M		#  3			   #
+#	#  478M		#  4			   #
+#	#  30.59G		#  5			   #
+#	#_________________#____________________#
+#
+#_______________________________________________
+#
+#	funcset:
+#
+#		def::ia
+#		let::ia
+#		del::ia
+#
+#		mov::aa
+#		def::aa
+#		let::aa
+#
+#		mov::iav
+#		def::iav
+#		let::iav
+#
+#		mov::iai
+#		def::iai
+#		let::iai
+#
+#		mov::aia
+#		def::aia
+#		let::aia
+#
+#		mov::iaia
+#		def::iaia
+#		let::iaia
+#
+#	n/a	dump::a
+#	n/a	dump::ab
+#
+#	+	arr::name
+#	+	arr::same
+#
+#		ret::a
+#		ret::ad
+#		ret::as
+#		ret::ab
+#		ret::abs
+#
+#_________________________________________________________________
+func	envmod::arr( C ) { #########################################
+
+	# environment registration: uid
+	#
+	#_____________________________
+
+	C[ "rq" ]		= "hid"
+
+}#________________________________________________________________
+##################################################################
+
+@namespace   "arr"
+
+#_________________________________________________________________
+BEGIN{ ###########################################################
+
+	init0()
+
+}#________________________________________________________________
+func	init0() { ##################################################
+
+	if ( NAME_ == "" ) {
+
+		NAME_				= hid()
+		ARRNAME_			= hid()
+
+		HID[ ARRNAME_ ]		= "HID"
+
+		FUNC::TAB[ ARRNAME_ ]	= "FUNC::TAB"
+
+		FUNC::TAB[ "arr::_func_iuhcve4yhc845734c5989" ]
+
+		arr::_var_7923c4287h23747x982748
+
+		_IDXSCAN[ "" ][ "arr::_var_7923c4287h23747x982748" ] = "SYMTAB"
+		_IDXSCAN[ "" ][ "arr::_func_iuhcve4yhc845734c5989" ] = "FUNCTAB" } }
+
+	func	arr::_func_iuhcve4yhc845734c5989() { }
+
+#_________________________________________________________________
+func	def::a( A ) { ##############################################
+
+	# CLR A ( A[ ... ] )
+	#
+	#	returns - 
+	#_____________________________
+
+	delete A }
+
+#___________________________________________________________
+func	let::a( A ) { ########################################
+
+	# A[ ... ]
+	#
+	#
+	#	returns - 
+	#_____________________________
+
+	"" in A }
+
+#_________________________________________________________________
+func	def::ia( i, A ) { ##########################################
+
+	# DEL A[ i ]
+	# A[ i ][ ... ]
+	#
+	#	returns i
+	#_____________________________
+
+	if ( i in A )
+
+		delete A[ i ]
+
+	delete A[ i ][ A[ i ][ "" ] ]
+
+	return i }
+
+#___________________________________________________________
+func	let::ia( i, A ) { ####################################
+
+	# A[ i ][ ... ]
+	#
+	#	returns i
+	#_____________________________
+
+	if ( i in A )
+
+		if ( isarray( A[ i ] ) )
+
+			return i
+
+		else	delete A[ i ]
+
+	delete A[ i ][ A[ i ][ "" ] ]
+
+	return i }
+
+#___________________________________________________________
+func	del::ia( i, A ) { ####################################
+
+	# DEL A[ i ]
+	#
+	#	returns i
+	#_____________________________
+
+	if ( i in A )
+
+		delete A[ i ]
+
+	return i }
+
+#_________________________________________________________________
+func	mov::aa( D, S ,i ) { #######################################
+
+	# D < S
+	#
+	#	returns -
+	#_____________________________
+
+	if ( same( D, S ) )
+
+		return
+
+	for ( i in S )
+
+		switch ( isarray( S[ i ] ) isarray( D[ i ] ) ) {
+
+			case "10":
+
+				delete D[ i ]
+
+				D[ i ][ "" ]
+
+				def::aa( D[ i ], S[ i ] )
+
+				continue
+
+			case "11":
+
+				mov::aa( D[ i ], S[ i ] )
+
+				continue
+
+			case "01":
+
+				delete D[ i ]
+
+			case "00":
+
+				D[ i ] = S[ i ] } }
+
+#___________________________________________________________
+func	def::aa( D, S ,i ) { #################################
+
+	# D = S
+	#
+	#	returns -
+	#_____________________________
+
+	if ( same( D, S ) )
+
+		return
+
+	delete D
+
+	for ( i in S )
+
+		if ( isarray( S[ i ] ) ) {
+
+			D[ i ][ "" ]
+
+			def::aa( D[ i ], S[ i ] ) }
+
+		else	D[ i ] = S[ i ] }
+
+#___________________________________________________________
+func	let::aa( D, S ,i ) { #################################
+
+	# D << S
+	#
+	#	returns -
+	#_____________________________
+
+	if ( same( D, S ) )
+
+		return
+
+	for ( i in S )
+
+		if ( ! ( i in D ) )
+
+			if ( isarray( S[ i ] ) ) {
+
+				D[ i ][ "" ]
+
+				def::aa( D[ i ], S[ i ] ) }
+
+			else	D[ i ] = S[ i ] }
+
+#_________________________________________________________________
+func	mov::iav( i, A, V ) { ######################################
+
+	# A[ i ] += V
+	#
+	#
+	#	returns i
+	#_____________________________
+
+	switch ( isarray( A[ i ] ) typeof( V ) ) {
+
+		case "1array":
+
+			mov::aa( A[ i ], V )
+
+			return i
+
+		case "0array":
+
+			delete A[ i ]
+
+			A[ i ][ "" ]
+
+			def::aa( A[ i ], V )
+
+			return i
+
+		case "1untyped":
+
+		case "0untyped":
+
+			return i
+
+		case /^1/:
+		
+			delete A[ i ]
+
+		default:
+
+			A[ i ] = V
+
+			return i } }
+
+#___________________________________________________________
+func	def::iav( i, A, V ) { ################################
+
+	# A[ i ] = V
+	#
+	#
+	#	returns i
+	#_____________________________
+
+	switch ( typeof( V ) ) {
+
+		case "array":
+
+			delete A[ i ]
+
+			A[ i ][ "" ]
+
+			def::aa( A[ i ], V )
+
+			return i
+
+		case "untyped":
+
+			delete A[ i ]
+
+			return i
+		
+		default:
+
+			if ( isarray( A[ i ] ) )
+
+				delete A[ i ]
+
+			A[ i ] = V
+
+			return i } }
+
+#___________________________________________________________
+func	let::iav( i, A, V ) { ################################
+
+	# A[ i ] << V
+	#
+	#
+	#	returns i
+	#_____________________________
+
+	switch ( isarray( A[ i ] ) typeof( V ) ) {
+
+		case "1array":
+
+			let::aa( A[ i ], V )
+
+			return i
+
+		case "0array":
+
+			delete A[ i ]
+
+			A[ i ][ "" ]
+
+			def::aa( A[ i ], V )
+
+		case "0untyped":
+
+		case "1untyped":
+
+			return i
+
+		case /^1/:
+
+			delete A[ i ]
+
+		default:
+
+			A[ i ] = V
+
+			return i } }
+
+#_________________________________________________________________
+func	mov::aia( D, i, S ) { ######################################
+
+	# D[ i ] < S[ i ]
+	#
+	#
+	#	returns i
+	#_____________________________
+
+	if ( same( D, S ) )
+
+		return i
+
+	return mov::iaia( i, D, i, S ) }
+
+#___________________________________________________________
+func	def::aia( D, i, S ) { ################################
+
+	# D[ i ] = S[ i ]
+	#
+	#
+	#	returns i
+	#_____________________________
+
+	if ( same( D, S ) )
+
+		return i
+
+	return def::iaia( i, D, i, S ) }
+
+#___________________________________________________________
+func	let::aia( D, i, S ) { ################################
+
+	# D[ i ] << S[ i ]
+	#
+	#
+	#	returns i
+	#_____________________________
+
+	if ( same( D, S ) )
+
+		return i
+
+	return let::iaia( i, D, i, S ) }
+
+#_________________________________________________________________
+func	mov::iai( d, A, s ) { ######################################
+
+	# A[ d ] < A[ s ]
+	#
+	#
+	#	returns d
+	#_____________________________
+
+	if ( d == s )
+
+		return d
+
+	return mov::iaia( d, A, s, A ) }
+
+#___________________________________________________________
+func	def::iai( d, A, s ) { ################################
+
+	# A[ d ] = A[ s ]
+	#
+	#	returns d
+	#_____________________________
+
+	if ( d == s )
+
+		return d
+
+	return def::iaia( d, A, s, A ) }
+
+#___________________________________________________________
+func	let::iai( d, A, s ) { ################################
+
+	# A[ d ] ?= A[ s ]
+	#
+	# if NOT s in S then delete D[ d ]
+	#
+	#	returns d
+	#_____________________________
+
+	if ( d == s )
+
+		return d
+
+	return let::iaia( d, A, s, A ) }
+
+#_________________________________________________________________
+func	mov::iaia( d, D, s, S ) { ##################################
+
+	# D[ d ] += S[ s ]
+	#
+	# if NOT s in S then delete D[ d ]
+	#
+	#	returns d
+	#_____________________________
+
+	if ( d == s && same( D, S ) )
+
+		return d
+
+	if ( s in S )
+
+		return mov::iav( d, D, S[ s ] )
+
+	return d }
+
+#___________________________________________________________
+func	def::iaia( d, D, s, S ) { ############################
+
+	# D[ d ] = S[ s ]
+	#
+	# if NOT s in S then delete D[ d ]
+	#
+	#	returns d
+	#_____________________________
+
+	if ( d == s && same( D, S ) )
+
+		return d
+
+	if ( s in S )
+
+		return def::iav( d, D, S[ s ] )
+
+	else	delete D[ d ]
+
+	return d }
+
+#___________________________________________________________
+func	let::iaia( d, D, s, S ) { ############################
+
+	# D[ d ] ?= S[ s ]
+	#
+	#	if D[ d ] is subarray and S[ s ] is subarray ...
+	# 
+	#	if NOT s in S then do nothing
+	#
+	#	returns d
+	#_____________________________
+
+	if ( d == s && same( D, S ) )
+
+		return d
+
+	if ( s in S )
+
+		return mov::iav( d, D, S[ s ] )
+
+	else	delete D[ d ]
+
+	return d }
+
+#_________________________________________________________________
+func	same( A, B ,r ) { ##########################################
+
+	# returns 1 in case if array A is the same array as the array B
+	#_____________________________
+
+	if ( NAME_ == "" )
+
+		init0()
+
+	A[ NAME_ ]
+
+	r = NAME_ in B
+
+	delete A[ NAME_ ]
+
+	return r }
+
+#_________________________________________________________________
+func	name( A ,i ) { #############################################
+
+	# return name of the global array A
+	#
+	#	if A is not global array then return null
+	#_____________________________
+
+	if ( NAME_ == "" )
+
+		init0()
+
+	if ( ARRNAME_ in A )
+
+		return A[ ARRNAME_ ]
+
+	for ( i in _IDXSCAN[ "" ] )
+
+		if ( i in A )
+
+			return _IDXSCAN[ "" ][ i ]
+
+	A[ NAME_ ]
+
+	for ( i in SYMTAB )
+
+		if ( isarray( SYMTAB[ i ] ) )
+
+			if ( NAME_ in SYMTAB[ i ] )
+
+				if ( ! ( ARRNAME_ in SYMTAB[ i ] ) ) {
+
+					delete A[ NAME_ ]
+
+					if ( NAME_ in SYMTAB[ i ] )
+
+						A[ NAME_ ]
+
+					else	return i }
+
+	delete A[ NAME_ ] }
+
+#_________________________________________________________________
+func	dump::a( A ) { #############################################
+
+	# return text that's is a dump of the given array 
+	#
+	#	not implemented
+	#_____________________________
+
+
+	}
+
+#___________________________________________________________
+func	dump::ab( A, B ) { ###################################
+
+	# return text that's is a dump of the two given arrays
+	#
+	#	not implemented
+	#_____________________________
+
+	
+	}
+
+#_________________________________________________________________
+func	ret::a( A,ia,q,s, sp, b,sb ) { #############################
+
+	switch ( type2( A, sp ) ) {
+
+		case "AA":
+
+			return retab_0( A, sp, ia, q, b, s, sb )
+
+		case "AS":
+
+			return retas_0( A, sp, ia,q,s )
+
+		case "SA":
+
+			return retas_0( sp, A, ia,q,s )
+
+		case "AU":
+
+			return reta_0( A,ia,q,s )
+
+		case "UA":
+
+			return reta_0( sp,b,q,sb ) } }
+
+#___________________________________________________________
+func	ret::ad( A, s,a,q, sp, b,sb ) { ######################
+
+	return ret::a( A, a,q,s, sp, b,sb ) }
+
+#___________________________________________________________
+func	ret::as( A, sp, a,q,s, b,sb ) { ######################
+
+	return ret::a( A, a,q,s, sp, b,sb ) }
+
+#___________________________________________________________
+func	ret::ab( A, B, a,q, b, s,sb, sp ) { ##################
+
+	if ( sp == "" )
+
+		return ret::a( A,a,q,s, B,b,sb )
+
+	return ret::abs( A, B, sp, a, q, b, s, sb ) }
+
+#___________________________________________________________
+func	ret::abs( A, B, sp, a,q, b, s,sb ) { #################
+
+	if ( sp == "" )
+
+		return ret::a( A, a,q,s, B, b,sb )
+
+	switch ( type2( A, B ) ) {
+
+		case "AA":
+
+			return retabs_0( A, a,s, B, b,sb, q, sp )
+
+		case "AS":
+
+			return retas_0( A, B sp, a,q,s )
+
+		case "SA":
+
+			return retas_0( B, A sp, a,q,s )
+
+		case "AU":
+
+			return retas_0( A, sp, a,q,s )
+
+		case "UA":
+
+			return retas_0( B, sp, b, q, sb ) } }
+
+#_________________________________________________________________
+func	reta_0( A, a,q,s, f ,a0,D ) { ##############################
+
+	if ( ! get_startlen( A, a,q,s, f ) )
+
+		return
+
+	a = I0
+
+	s = S0 + S0
+
+	if ( f = and( Q0, 1 ) ) {
+
+		f = length( A[ a ] )
+
+		a0 = a
+
+		a += S0 }
+
+	if ( 64 > q = rshift( Q0, 1 ) )
+
+		if ( q ) {
+
+			q = "arr::movab_" q
+
+			return @q( A,a,s, A,a + S0,s, f ? A[ a0 ] : "" ) }
+
+		else	if ( f )
+
+				return A[ a0 ]
+
+			else	return
+
+	return movab( D, q, A,a,s, A,a + S0,s, f ? A[ a0 ] : "" ) }
+
+#___________________________________________________________
+func	retas_0( A, sp, a,q,s, f ,B,D ) { ####################
+
+	if ( f != "0" )
+
+		if ( ! get_startlen( A, a,q,s, f ) )
+
+			return
+
+	if ( Q0 == 1 )
+
+		return A[ I0 ]
+
+	B[ 0 ] = sp
+ 
+	if ( Q0 < 64 ) {
+
+		q = "arr::movab_" Q0
+
+		return @q( B,"",0, A,I0,S0 ) }
+
+	return movab( D, Q0, B,"",0, A,I0,S0 ) }
+
+#___________________________________________________________
+func	retab_0( A, B, a,q, b, s, sb ,D ) { #################
+
+	switch ( get_startlen( B, b,q,sb, "b" ) get_startlen( A, a,q,s, "a" ) ) {
+
+		case "AAAA":
+
+			# a == b == s == sb == ""
+
+			if ( I0 != I1 )
+
+				if ( I1 < I0 ) {
+
+					D[ 0 ] = B[ I1 ]
+
+					I1 += S1 }
+
+				else
+
+					if ( --Q0 ) {
+
+						D[ 0 ] = A[ I0 ]
+
+						I0 += S0 }
+
+					else	return A[ I0 ]
+
+			break
+
+		case "00":
+
+			return
+
+		case /^0/:
+
+			return reta_0( A, "", "", "", "0" )
+
+		case /0$/:
+
+			return reta_0( B, "", "", "", "1" ) }
+
+	return movab( D, Q0, A,I0,S0, B,I1,S1 ) }
+
+#___________________________________________________________
+func	retabs_0( A, a,s, B, b,sb, q, sp ,D ) { ##############
+
+	switch ( get_startlen( B, b, "-", sb, "b" ) get_startlen( A, a,q,s, "a" ) ) {
+
+		case "00":
+
+			return
+
+		case /^0/:
+
+			return retas_0( A, sp, "", "", "", "0" )
+
+		case /0$/:
+
+			return retas_0( B, sp, "", "", "", "1" ) }
+
+	if ( Q0-- ) {
+
+		"" in D
+
+		while ( Q0-- ) {
+
+			D[ length( D ) ] = A[ a ] B[ b ] sp
+
+			a += s; b += sb }
+
+		D[ length( D ) ] = A[ a ] B[ b ]
+
+		if ( 64 < q = length( D ) )
+
+			movair( D, q )
+
+		if ( length( D ) > 1 )
+
+			return  D[0]  D[1]D[2]D[3]D[4]D[5]D[6]D[7]D[8]D[9]D[10]D[11]D[12]D[13]D[14]D[15]D[16]D[17]D[18]D[19]D[20]D[21]D[22]D[23]D[24]D[25]D[26]D[27]D[28]D[29]D[30]D[31]D[32]D[33]D[34]D[35]D[36]D[37]D[38]D[39]D[40]D[41]D[42]D[43]D[44]D[45]D[46]D[47]D[48]D[49]D[50]D[51]D[52]D[53]D[54]D[55]D[56]D[57]D[58]D[59]D[60]D[61]D[62]D[63] #  xdup 64 [0-9]+
+
+		return D[ 0 ] } }
+
+#_________________________________________________________________
+func	get_startlen( A, i,q,s, f ) { ##############################
+ 
+	#	I		- start index
+	#	S		- requested index step
+	#	Q		- number of elements to join
+	#	X		- array index step
+	#	F		- first index
+	#	L		- last index
+	#	R		- result (internal)
+	#_______________________
+
+	switch ( f ) {
+
+		case "":
+
+			if ( typeof( A ) == "array" )
+
+				break
+
+			return 0
+
+		case "a":
+
+			I1 = I0
+			S1 = S0
+			Q1 = Q0
+			X1 = X0
+			F1 = F0
+			L1 = L0
+			R1 = R0
+
+		case "b":
+
+			break
+
+		case "1":
+
+			I0 = I1
+			S0 = S1
+			Q0 = Q1
+			F0 = F1
+			L0 = L1
+			R0 = R1
+
+		case "0":
+
+		default:
+
+			return R0 }
+
+	if ( ! length( A ) )
+
+		return 0
+	#_________________
+
+	F0 = ! ( 0 in A )
+
+	L0 = F0 + len( A ) - 1
+	#_________________
+
+	if ( s == "" )
+
+		s = 1
+
+	S0 = s
+
+	#_________________
+
+	if ( i == "" ) {
+
+		R0 = "A"
+
+		i = S0 < 0 ? L0 : F0 }
+
+	else	R0 = "1"
+
+	I0 = i
+	#_________________
+
+	if ( q == "" ) {
+
+		R0 = R0 "A"
+
+		q = S0 < 0 ? F0 : L0 }
+
+	else {
+
+		R0 = R0 "1"
+
+		q = I0 + q - 1
+
+		if ( q > L0 )
+
+			q = L0 }
+
+	q = _abs( q - I0 )
+
+	Q0 = int( q / _abs( S0 ) ) + 1 
+
+	return R0 }
+
+	#_______________________
+
+	func	len( A ) {
+
+		if ( typeof( A ) == "array" )
+
+			return length( A )
+
+		return 0 }
+
+#_________________________________________________________________
+func	movab( D, q, A,a,x, B,b,y, s ,f,i ) { ######################
+	
+	# accurate data collecting with the air-factor: x1024/256/64
+	#
+	#
+	# when joining indexes it's data copied to somewhere and this operation 
+	# called as 'data pass' is actual performance main load
+	# below is the number of data passes depending from the number
+	# of index joined:
+	#
+	# from	to		data pass
+	#--------------------------------
+	#   1	      63		    1
+	#   64     64 K		    2
+	#   64K     4 M		    3
+	#
+	# Array Index Reducer: x1024/256/64
+	#_____________________________
+
+	"" in D
+
+	i = 0
+
+	# x1024
+
+	for ( f = rshift( q, 10 ); f; f-- ) {
+
+		if ( length( D[ i ] = A[a]B[b]  A[a+=x]B[b+=y]  A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]  ) )	 #  xdup 1023
+
+			i++
+
+		a += x; b += y }
+	#_________________
+
+	# x256
+
+	for ( f = and( rshift( q, 8 ), 3 ); f; f-- ) {
+
+		if ( length( D[ i ] = A[a]B[b]  A[a+=x]B[b+=y]  A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]  ) )		#  xdup 255
+
+			i++
+
+		a += x; b += y }
+	#_________________
+
+	# x64
+
+	for ( f = and( rshift( q, 6 ), 3 ); f; f-- ) {
+
+		if ( length( D[ i ] = A[a]B[b]  A[a+=x]B[b+=y]  A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]  ) )	 #  xdup 63
+
+			i++
+
+		a += x; b += y }
+	#_________________
+
+	if ( f = and( q, 63 ) ) {
+
+		f = "arr::movab_" f
+
+		if ( length( D[ i ] = @f( A,a,x, B,b,y ) ) )
+
+			i++ }
+	#_______________________
+
+	if ( ! i )
+
+		return s
+
+	if ( i > 64 )
+
+		movair( D, i )
+
+	else	delete D[ i ]
+
+	if ( length( D ) > 1 )
+
+		return s  D[0]  D[1]D[2]D[3]D[4]D[5]D[6]D[7]D[8]D[9]D[10]D[11]D[12]D[13]D[14]D[15]D[16]D[17]D[18]D[19]D[20]D[21]D[22]D[23]D[24]D[25]D[26]D[27]D[28]D[29]D[30]D[31]D[32]D[33]D[34]D[35]D[36]D[37]D[38]D[39]D[40]D[41]D[42]D[43]D[44]D[45]D[46]D[47]D[48]D[49]D[50]D[51]D[52]D[53]D[54]D[55]D[56]D[57]D[58]D[59]D[60]D[61]D[62]D[63] 	#  xdup 64 [0-9]+
+
+	if ( length( s ) )
+
+		return s D[ 0 ]
+
+	else	return D[ 0 ] }
+	#_____________________________
+
+	func movab_1( A,a,x, B,b,y, f ) {
+
+		if ( length( f ) )
+
+			return f A[a]B[b]
+
+		else return A[a]B[b]
+
+	}func movab_2(A,a,x,B,b,y,f){return f A[a]B[b]  A[a+=x]B[b+=y]  # *62
+	}func movab_3(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_4(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_5(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_6(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_7(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_8(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_9(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_10(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_11(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_12(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_13(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_14(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_15(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_16(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_17(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_18(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_19(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_20(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_21(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_22(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_23(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_24(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_25(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_26(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_27(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_28(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_29(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_30(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_31(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_32(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_33(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_34(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_35(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_36(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_37(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_38(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_39(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_40(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_41(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_42(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_43(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_44(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_45(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_46(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_47(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_48(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_49(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_50(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_51(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_52(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_53(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_54(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_55(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_56(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_57(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_58(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_59(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_60(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_61(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_62(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}func movab_63(A,a,x,B,b,y,f){return f A[a]B[b]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]A[a+=x]B[b+=y]		# ...
+	}
+	#_____________________________________________________
+	func	movair( D, q ,c,s,y ) { ########################
+
+		# Array Index Reducer x64
+		#_____________________________
+
+		while ( c = rshift( q, 6 ) ) {
+
+			q = s = 0; y = 1 
+
+			do {	D[ q++ ] =  D[s++]  D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++]D[s++] 	#  xdup 64
+
+				while ( y < s )
+
+					delete D[ y++ ] } while ( c-- ) } }
+
+#_________________________________________________________________
+func	typeof( p ) { ##############################################
+
+	return awk::typeof( p ) }
+
+#___________________________________________________________
+func	type( A ) { ##########################################
+
+	switch ( typeof( A ) ) {
+
+		case "array":
+
+			if ( length( A ) )
+
+				return "A"
+
+		case "untyped":
+
+			return "U"
+
+		default:
+
+			return "S" } }
+
+#___________________________________________________________
+func	type2( A, B ) { ######################################
+
+	return type( A ) type( B ) }
+
+#___________________________________________________________
+func	isarray( A ) { #######################################
+
+	return awk::isarray( A ) }
+#___________________________________________________________
+func	and( a, b ) { ########################################
+
+	return awk::and( a, b ) }
+
+#___________________________________________________________
+func	rshift( v, r ) { #####################################
+
+	return awk::rshift( v, r ) }
+
+#___________________________________________________________
+func	_abs( v ) { ##########################################
+
+	return v >= 0 ? v : 0 - v }
+
+#___________________________________________________________
+func	hid( n ,c ) { ########################################
+
+	if ( "hid::get" in FUNCTAB )
+
+		return hid::get( n )
+
+	if ( n == "" )
+
+		n = "HID" ++_hid_cnt
+
+	c = "\xFE" n "\xFE"
+
+	HID[ c ]
+
+	return c }
+
+#_______________________________________________________________________
+########################################################################
+
+
