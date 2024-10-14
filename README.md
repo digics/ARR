@@ -28,7 +28,7 @@ arr is the awk user-level library for works with an arrays:
 
 ## How to use
 
-Include file 'arr.lib' in your gawk project.
+Include file 'arr.lib' in your awk project.
 
 Library isn't requiring initialization so the place of including library is not critical
 
