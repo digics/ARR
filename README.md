@@ -6,7 +6,7 @@ arr is the awk user-level library for works with an arrays:
 
             - high performance
 
-            - large amount of data and number of joined indicies
+            - large amount of data and number of joined indexes
 
             - ret::a          join single array
 
