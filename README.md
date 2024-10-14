@@ -1,4 +1,5 @@
-﻿﻿## Summary
+﻿
+## Summary
 
 arr is the awk user-level library for works with an arrays:
 
