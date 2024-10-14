@@ -35,9 +35,9 @@ Library isn't requiring initialization so the place of including library is not 
 
 ## Extra
 
-File 'arr_en.pdf' contains english documentation about this library.
+File 'arr_en.pdf' contains incompleted english documentation about this library.
 
-File 'arr_ru.pdf' contains russian documentation about this library.
+
 
 
 
