@@ -1,12 +1,12 @@
-﻿## Summary
+﻿﻿## Summary
 
 arr is the awk user-level library for works with an arrays:
 
       - array joining functions: 
 
-            - best performance
+            - high performance
 
-            - large amount of data
+            - large amount of data and number of joined indicies
 
             - ret::a          join single array
 
@@ -16,7 +16,7 @@ arr is the awk user-level library for works with an arrays:
 
             - ret::abs        join array-pairs with separator
 
-      - array definition and data movement functions
+      - array definition and data transfer functions
 
             - mov/def/let copy methods
 
