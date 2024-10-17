@@ -1157,11 +1157,15 @@ func  hid( n, c ) { ########################################
 
             n = "HID" ++_hid_cnt
 
+      if ( n in _NAMECODE )
+
+            return _NAMECODE[ n ]
+
       if ( c == "" )
 
             c = "\xFE" n "\xFE"
 
-      HID[ c ]
+      _NAMECODE[ HID[ c ] = n ] = c
 
       return c }
 
