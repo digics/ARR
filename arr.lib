@@ -1029,11 +1029,11 @@ func  movab( D, q, A,a,x, B,b,y, s ,f,i ) { ######################
 
             return s
 
+      delete D[ i ]
+
       if ( i > 64 )
 
             movair( D, i )
-
-      else  delete D[ i ]
 
       if ( length( D ) > 1 )
 
@@ -1123,7 +1123,9 @@ func  movab( D, q, A,a,x, B,b,y, s ,f,i ) { ######################
             # Array Index Reducer x64
             #_____________________________
 
-            while ( c = rshift( q, 6 ) ) {
+            while ( q > 64 ) {
+
+                  c = rshift( q, 6 )
 
                   q = s = 0; y = 1 
 
