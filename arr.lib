@@ -1123,9 +1123,7 @@ func  movab( D, q, A,a,x, B,b,y, s ,f,i ) { ######################
             # Array Index Reducer x64
             #_____________________________
 
-            while ( q > 64 ) {
-
-                  c = rshift( q, 6 )
+            while ( c = rshift( q, 6 ) ) {
 
                   q = s = 0; y = 1 
 
