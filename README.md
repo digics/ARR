@@ -38,6 +38,7 @@ Library isn't requiring initialization so the place of including library is not 
 
 File 'arr_en.pdf' contains incompleted english documentation about this library.
 
+Please visit my repository to be up to dated.
 
 
 
