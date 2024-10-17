@@ -241,6 +241,7 @@ func  mov::iav( i, A, V ) { ######################################
 
       # A[ i ] += V
       #
+      # if V is untyped then do nothing
       #
       #     returns i
       #_____________________________
@@ -284,6 +285,7 @@ func  def::iav( i, A, V ) { ################################
 
       # A[ i ] = V
       #
+      # if V is untyped then delete A[ i ]
       #
       #     returns i
       #_____________________________
@@ -321,6 +323,7 @@ func  let::iav( i, A, V ) { ################################
 
       # A[ i ] << V
       #
+      # if V is untyped then do nothing
       #
       #     returns i
       #_____________________________
@@ -363,6 +366,7 @@ func  mov::iai( d, A, s ) { ######################################
 
       # A[ d ] < A[ s ]
       #
+      #     if NOT s in A then do nothing
       #
       #     returns d
       #_____________________________
@@ -381,6 +385,8 @@ func  mov::iai( d, A, s ) { ######################################
 func  def::iai( d, A, s ) { ################################
 
       # A[ d ] = A[ s ]
+      #
+      #     if NOT s in A then delete A[ d ]
       #
       #     returns d
       #_____________________________
@@ -402,7 +408,7 @@ func  let::iai( d, A, s ) { ################################
 
       # A[ d ] ?= A[ s ]
       #
-      # if NOT s in A then do nothing
+      #     if NOT s in A then do nothing
       #
       #     returns d
       #_____________________________
@@ -423,6 +429,7 @@ func  mov::aia( D, i, S ) { ######################################
 
       # D[ i ] < S[ i ]
       #
+      #     if NOT i in S then do nothing
       #
       #     returns i
       #_____________________________
@@ -442,6 +449,7 @@ func  def::aia( D, i, S ) { ################################
 
       # D[ i ] = S[ i ]
       #
+      #     if NOT i in S then delete D[ i ]
       #
       #     returns i
       #_____________________________
@@ -463,6 +471,7 @@ func  let::aia( D, i, S ) { ################################
 
       # D[ i ] << S[ i ]
       #
+      #     if NOT i in S then do nothing
       #
       #     returns i
       #_____________________________
@@ -483,7 +492,7 @@ func  mov::iaia( d, D, s, S ) { ##################################
 
       # D[ d ] += S[ s ]
       #
-      # if NOT s in S then delete D[ d ]
+      #     if NOT s in S then do nothing
       #
       #     returns d
       #_____________________________
@@ -524,8 +533,6 @@ func  def::iaia( d, D, s, S ) { ############################
 func  let::iaia( d, D, s, S ) { ############################
 
       # D[ d ] ?= S[ s ]
-      #
-      #     if D[ d ] is subarray and S[ s ] is subarray ...
       # 
       #     if NOT s in S then do nothing
       #
