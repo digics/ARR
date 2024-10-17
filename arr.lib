@@ -371,7 +371,11 @@ func  mov::iai( d, A, s ) { ######################################
 
             return d
 
-      return mov::iaia( d, A, s, A ) }
+      if ( s in A )
+
+            return mov::iav( d, A, A[ s ] )
+
+      return d }
 
 #___________________________________________________________
 func  def::iai( d, A, s ) { ################################
@@ -385,14 +389,20 @@ func  def::iai( d, A, s ) { ################################
 
             return d
 
-      return def::iaia( d, A, s, A ) }
+      if ( s in A )
+
+            return def::iav( d, A, A[ s ] )
+
+      else  delete A[ d ]
+
+      return d }
 
 #___________________________________________________________
 func  let::iai( d, A, s ) { ################################
 
       # A[ d ] ?= A[ s ]
       #
-      # if NOT s in S then delete D[ d ]
+      # if NOT s in A then do nothing
       #
       #     returns d
       #_____________________________
@@ -401,7 +411,11 @@ func  let::iai( d, A, s ) { ################################
 
             return d
 
-      return let::iaia( d, A, s, A ) }
+      if ( s in A )
+
+            return let::iav( d, A, A[ s ] )
+
+      return d }
 
 
 #_________________________________________________________________
@@ -417,7 +431,11 @@ func  mov::aia( D, i, S ) { ######################################
 
             return i
 
-      return mov::iaia( i, D, i, S ) }
+      if ( i in S )
+
+            return mov::iav( i, D, S[ i ] )
+
+      return i }
 
 #___________________________________________________________
 func  def::aia( D, i, S ) { ################################
@@ -432,7 +450,13 @@ func  def::aia( D, i, S ) { ################################
 
             return i
 
-      return def::iaia( i, D, i, S ) }
+      if ( i in S )
+
+            return def::iav( i, D, S[ i ] )
+
+      else  delete D[ i ]
+
+      return i }
 
 #___________________________________________________________
 func  let::aia( D, i, S ) { ################################
@@ -447,7 +471,11 @@ func  let::aia( D, i, S ) { ################################
 
             return i
 
-      return let::iaia( i, D, i, S ) }
+      if ( i in S )
+
+            return let::iav( i, D, S[ i ] )
+
+      return i }
 
 
 #_________________________________________________________________
