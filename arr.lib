@@ -774,8 +774,6 @@ func  retab_0( A, B, a,q, b, s, sb ,D ) { ##################
 
                         if ( I1 < I0 ) {
 
-                              print "OOOOOOOOOOOOOORRRRRRRRCCCCCCCCCCH " B[ I1 ] "' I1: " I1 "'" 
-
                               D[ 0 ] = B[ I1 ]
 
                               I1 += S1 }
@@ -783,8 +781,6 @@ func  retab_0( A, B, a,q, b, s, sb ,D ) { ##################
                         else
 
                               if ( --Q0 ) {
-
-                                    print "HHHUUJJJOOOOOOOOOOOOOORRRRRRRRCCCCCCCCCCH"
 
                                     D[ 0 ] = A[ I0 ]
 
