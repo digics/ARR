@@ -2,7 +2,7 @@
 # 450 + 200 + 200 + 60 + 50 + 100 - 50 - 50 == 950
 # retai() or retais() - return indexes
 #_________________________________________________________________
-# ARR v1.1 ( 2024.12.1 ) ########################################?
+# ARR v1.1 ( 2024.12.1 ) #########################################
 #
 #	by digi_cs 2024
 #
@@ -32,7 +32,7 @@
 #
 
 #_____________________________________________________
-# ARR gawk library v1.01 #############################
+# ARR gawk library v1.1 ##############################
 #
 #	by digi_cs ( 2024.11 - 2025.2 )
 #
@@ -55,7 +55,7 @@
 #	(due to untyped elements to be copied)
 #
 # !	- def/let/mov::iav() and def/let/mov::aia() - parameter `i may be an array providing index structure
-#	(including subindexes) to be defined/deleted 
+#	(including subindexes) to be created
 #
 # ?	- delete hid support ?
 #
