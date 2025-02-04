@@ -1,148 +1,10 @@
 
 # 450 + 200 + 200 + 60 + 50 + 100 - 50 - 50 == 950
 # retai() or retais() - return indexes
-#_________________________________________________________________
-# ARR v1.1 ( 2024.12.1 ) #########################################
-#
-#	by digi_cs 2024
-#
-#	PLEASE DOWNLOAD LATEST VERSION FROM: github.com/digics/ARR
-#
-#_______________________________________________
-#
-# 1.0 > 1.1:
-#
-#	dump::a() implemented ( dump::ab() still not present )
-#
-#	def::ia / let::ia
-#
-#	def::aia / let::aia / mov::aia
-#
-#		parameter `i may be an array providing index structure
-#		(including subindexes) to be copied
-#
-#
-#	let::aa/def::aa - updated (due to untyped elements; also mov:aa, mov-def-let::iav)
-#
-#_______________________________________________
-#
-#	funcset:
-#
-#		??? del::ra ????
-#
+# mov/def/let::aa( D, S, L ??? )
 
-#_____________________________________________________
-# ARR gawk library v1.1 ##############################
-#
-#	by digi_cs ( 2024.11 - 2025.2 )
-#
-#	github.com/digiccs
 
-#	recommended to use with uid library available at github
-#
-#_________________________________________
-#
-# 1.00 vs 1.1
-#
-#	- bug fixed about retab() ( B[ 0 ] element missed )
-#
-#	- funcs dump::a() implemented
-#
-# !	- def::ia(), let::ia() and del::ia() -  parameter `i may be an array providing index structure
-#	(including subindexes) to be defined/deleted
-#
-# !	- def/let/mov::aa() and def/let/mov::iav() and  all other: iai(), aia() and iaia() alg updated
-#	(due to untyped elements to be copied)
-#
-# !	- def/let/mov::iav() and def/let/mov::aia() - parameter `i may be an array providing index structure
-#	(including subindexes) to be created
-#
-# ?	- delete hid support ?
-#
-# !	- publishing library resources in 'global::' namespace
-#
-#	- 
-#
-#_________________________________________
-#
-# FUNCSET:
-#
-#		def::ia( i, A )			define A[ i ] as the empty subarray(s); returns i
-#		let::ia( i, A )			define A[ i ] as the subarray(s) - if it's already not; returns i
-#		del::ia( o, A )			delete A[ i ]
-#
-#		mov::aa( D, S )			
-#		def::aa( D, S )			
-#		let::aa( D, S )			
-#
-#		mov::iav( i, A, v )		
-#		def::iav( i, A, v )		
-#		let::iav( i, A, v )		
-#
-#		mov::iai( d, A, s )		
-#		def::iai( d, A, s )		
-#		let::iai( d, A, s )		
-#
-#		mov::aia( D, i, S )		
-#		def::aia( D, i, S )		
-#		let::aia( D, i, S )		
-#
-#		mov::iaia( d, D, s, S )		
-#		def::iaia( d, D, s, S )		
-#		let::iaia( d, D, s, S )		
-#
-#		dump::a( A, "name~regex" )	return text that is the dump of array A
-#							check if name is empty after splitting it's from the regexp
-#
-#	n/a	dump::ab( A, B )			return text that is the dump of arrays: A and B
-#							dumps of A and B are will be horizontally separated
-#
-#		arr::name
-#		arr::same
-#
-#		ret::a
-#		ret::ad
-#		ret::as
-#		ret::ab		bug fixed (after-patsplit arrays)
-#		ret::abs#
-#
-# 
 
-#_________________________________________________________________
-func	envmod::arr( C ) { #########################################
-
-	C[ "ver" ]	= "101" }
-
-@namespace	 "arr"
-
-BEGIN{
-
-	_NS			= "arr"
-
-	init0() }
-
-#_________________________________________________________________
-func	init0() { ##################################################
-
-	if ( NAME_ == "" ) {
-
-		NS_				= _NS "::"
-
-		NAME_				= hid()
-		ARRNAME_			= hid()
-
-		HID[ ARRNAME_ ]		= "HID"
-
-		FUNC::TAB[ ARRNAME_ ]	= "FUNC::TAB"
-
-		FUNC::TAB[ NS_ "func_iuhcve4yhc845734c5989" ]
-
-		var_7923c4287h23747x982748
-
-		_IDXSCAN[ NS_ "var_7923c4287h23747x982748" ] = "SYMTAB"
-		_IDXSCAN[ NS_ "func_iuhcve4yhc845734c5989" ] = "FUNCTAB" } }
-
-		func	func_iuhcve4yhc845734c5989() { }
 
 #_________________________________________________________________
 # ::aia() family #################################################
@@ -245,123 +107,6 @@ func	init0() { ##################################################
 #				  [ "A3" ][ "A31" ][ ...
 #				  	    [ "A32" ][ ...
 #
-#___________________________________________________________
-func	mov::aia( D, i, S ,ii ) { ############################
-
-	switch ( awk::typeof( i ) ) {
-
-		case "array":
-
-			if ( ! same( D, S ) )
-
-				for ( ii in i )
-
-					if ( isarray( i[ ii ] ) ) {
-
-						if ( ii in S )
-
-							mov::aia( D[ let::ia( ii, D ) ], i[ ii ], S[ ii ] ) }
-
-					else	if ( ( ii = i[ ii ] ) in S )
-
-							mov::aia( D[ let::ia( ii, D ) ], ii, S[ ii ] )
-
-			return i[ 1 ]
-
-		case "untyped":
-
-			return mov::aia( D, "", S ) }
-
-	if ( same( D, S ) )
-
-		return i
-
-	if ( i in S )
-
-		return mov::iav( i, D, S[ i ] )
-
-	return i }
-
-# mov/def/let::aa( D, S, L ??? )
-#_____________________________________________________
-func	def::aia( D, i, S ,ii ) { ######################
-
-	switch ( awk::typeof( i ) ) {
-
-		case "array":
-
-			if ( ! same( D, S ) )
-
-				for ( ii in i )
-
-					if ( isarray( i[ ii ] ) )
-
-						if ( ii in S )
-
-							def::aia( D[ def::ia( ii, D ) ], i[ ii ], S[ ii ] )
-
-						else	delete D[ ii ]
-
-					else	if ( ( ii = i[ ii ] ) in S )
-
-							def::aia( D[ def::ia( ii, D ) ], ii, S[ ii ] )
-
-						else	delete D[ ii ]
-
-			return i[ 1 ]
-
-		case "untyped":
-
-			return def::aia( D, "", S ) }
-
-	if ( same( D, S ) )
-
-		return i
-
-	if ( i in S )
-
-		return def::iav( i, D, S[ i ] )
-
-	else	delete D[ i ]
-
-	return i }
-
-#_____________________________________________________
-func	let::aia( D, i, S ,ii ) { ######################
-
-	switch ( awk::typeof( i ) ) {
-
-		case "array":
-
-			if ( ! same( D, S ) )
-
-				for ( ii in i )
-
-					if ( isarray( i[ ii ] ) ) {
-
-						if ( ii in S )
-
-							let::aia( D[ let::ia( ii, D ) ], i[ ii ], S[ ii ] ) }
-
-					else	if ( ( ii = i[ ii ] ) in S )
-
-							let::aia( D[ let::ia( ii, D ) ], ii, S[ ii ] )
-
-			return i[ 1 ]
-
-		case "untyped":
-
-			return let::aia( D, "", S ) }
-
-	if ( same( D, S ) )
-
-		return i
-
-	if ( i in S )
-
-		return let::iav( i, D, S[ i ] )
-
-	return i }
 
 #_________________________________________________________________
 # ::ia() family ##################################################
@@ -378,16 +123,16 @@ func	let::aia( D, i, S ,ii ) { ######################
 #		and then redefined as the empty subarray
 #		returns `i
 #
-# del::ia	delete index `i in the target array `T in case if `i is exist in `T
+# Del::ia	delete index `i in the target array `T in case if `i is exist in `T
 #		return `i
 #
 # parameter `i may be string or array allowing user to define :
 #
 # if `i is untyped then its will remains untyped and index "" will
-# be defined as an subarray (or deleted in case of del::ia() )in the target array `T
+# be defined as an subarray (or deleted in case of Del::ia() )in the target array `T
 #
 # if `i is not an array then `i contains exact index string that should be
-# defined as an subarray (or deleted in case of del::ia() ) in the target array `T
+# defined as an subarray (or deleted in case of Del::ia() ) in the target array `T
 #
 #	let::ia( "A", T )
 #
@@ -415,7 +160,7 @@ func	let::aia( D, i, S ,ii ) { ######################
 #	let::ia( A, T, split( "ABC", A, "" ) )
 #
 #		note that 3rd parameter isn't supported by let:ia() but it's allowing
-#		to place it w/o any affectint to let::ia (same for def::ia and del::ia)
+#		to place it w/o any affectint to let::ia (same for def::ia and Del::ia)
 #
 #		defines in the target array `T subarrays:	 T[ "A" ][ ...
 #									 T[ "B" ][ ...
@@ -456,8 +201,317 @@ func	let::aia( D, i, S ,ii ) { ######################
 #				  [ "A2" ][ ...
 #				  [ "A3" ][ "A31" ][ ...
 #				  	    [ "A32" ][ ...
+
+
+
+
+
+
+
+
+
+#_________________________________________________________________
+# ARR v1.1 ( 2024.12.1 ) #########################################
+#
+#	by digi_cs 2024
+#
+#	PLEASE DOWNLOAD LATEST VERSION FROM: github.com/digics/ARR
+#
+#_______________________________________________
+#
+# 1.0 > 1.1:
+#
+#	dump::a() implemented ( dump::ab() still not present )
+#
+#	def::ia / let::ia
+#
+#	def::aia / let::aia / mov::aia
+#
+#		parameter `i may be an array providing index structure
+#		(including subindexes) to be copied
+#
+#
+#	let::aa/def::aa - updated (due to untyped elements; also mov:aa, mov-def-let::iav)
+#
+#_______________________________________________
+#
+#	funcset:
+#
+#		??? Del::ra ????
+#
+
+#_____________________________________________________
+# ARR gawk library v1.1 ##############################
+#
+#	by digi_cs ( 2024.11 - 2025.2 )
+#
+#	github.com/digiccs
+
+#	recommended to use with uid library available at github
+#
+#_________________________________________
+#
+# 1.00 vs 1.1
+#
+#	- bug fixed about retab() ( B[ 0 ] element missed )
+#
+#	- funcs dump::a() implemented
+#
+# !	- def::ia(), let::ia() and Del::ia() -  parameter `i may be an array providing index structure
+#	(including subindexes) to be defined/deleted
+#
+# !	- def/let/mov::aa() and def/let/mov::iav() and  all other: iai(), aia() and iaia() alg updated
+#	(due to untyped elements to be copied)
+#
+# !	- def/let/mov::iav() and def/let/mov::aia() - parameter `i may be an array providing index structure
+#	(including subindexes) to be created
+#
+# ?	- delete hid support ?
+#
+# !	- publishing library resources in 'global::' namespace
+#
+#	- 
+#
+#_________________________________________
+#
+# FUNCSET:
+#
+#		def::ia( i, A )			define A[ i ] as the empty subarray(s); returns i
+#		let::ia( i, A )			define A[ i ] as the subarray(s) - if it's already not; returns i
+#		Del::ia( o, A )			delete A[ i ]
+#
+#		mov::aa( D, S )			
+#		def::aa( D, S )			
+#		let::aa( D, S )			
+#
+#		mov::iav( i, A, v )		
+#		def::iav( i, A, v )		
+#		let::iav( i, A, v )		
+#
+#		mov::iai( d, A, s )		
+#		def::iai( d, A, s )		
+#		let::iai( d, A, s )		
+#
+#		mov::aia( D, i, S )		
+#		def::aia( D, i, S )		
+#		let::aia( D, i, S )		
+#
+#		mov::iaia( d, D, s, S )		
+#		def::iaia( d, D, s, S )		
+#		let::iaia( d, D, s, S )		
+#
+#		dump::a( A, "name~regex" )	return text that is the dump of array A
+#							check if name is empty after splitting it's from the regexp
+#
+#	n/a	dump::ab( A, B )			return text that is the dump of arrays: A and B
+#							dumps of A and B are will be horizontally separated
+#
+#		arr::name
+#		arr::same
+#
+#		ret::a
+#		ret::ad
+#		ret::as
+#		ret::ab		bug fixed (after-patsplit arrays)
+#		ret::abs#
+#
+# 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#_________________________________________________________________
+##################################################################
+
+@namespace	 "arr"
+
+BEGIN{
+
+	_NS			= "arr"
+
+	init0() }
+
+	#_______________________
+
+	func	init0() {
+
+		if ( NAME_ == "" ) {
+
+			NS_				= _NS "::"
+
+			NAME_				= hid()
+			ARRNAME_			= hid()
+
+			HID[ ARRNAME_ ]		= "HID"
+
+			FUNC::TAB[ ARRNAME_ ]	= "FUNC::TAB"
+
+			FUNC::TAB[ NS_ "func_iuhcve4yhc845734c5989" ]
+
+			var_7923c4287h23747x982748
+
+			_IDXSCAN[ NS_ "var_7923c4287h23747x982748" ] = "SYMTAB"
+			_IDXSCAN[ NS_ "func_iuhcve4yhc845734c5989" ] = "FUNCTAB" } }
+
+			func	func_iuhcve4yhc845734c5989() { }
+
+#_________________________________________________________________
+##################################################################
+
+func	mov::aia( D, i, S ,ii ) {
+
+	switch ( awk::typeof( i ) ) {
+
+		case "array":
+
+			if ( ! same( D, S ) )
+
+				for ( ii in i )
+
+					if ( isarray( i[ ii ] ) ) {
+
+						if ( ii in S )
+
+							mov::aia( D[ let::ia( ii, D ) ], i[ ii ], S[ ii ] ) }
+
+					else	if ( ( ii = i[ ii ] ) in S )
+
+							mov::aia( D[ let::ia( ii, D ) ], ii, S[ ii ] )
+
+			return i[ 1 ]
+
+		case "untyped":
+
+			return mov::aia( D, "", S ) }
+
+	if ( same( D, S ) )
+
+		return i
+
+	if ( i in S )
+
+		return mov::iav( i, D, S[ i ] )
+
+	return i }
+
+
+#_____________________________________________________
+######################################################
+
+func	def::aia( D, i, S ,ii ) {
+
+	switch ( awk::typeof( i ) ) {
+
+		case "array":
+
+			if ( ! same( D, S ) )
+
+				for ( ii in i )
+
+					if ( isarray( i[ ii ] ) )
+
+						if ( ii in S )
+
+							def::aia( D[ def::ia( ii, D ) ], i[ ii ], S[ ii ] )
+
+						else	delete D[ ii ]
+
+					else	if ( ( ii = i[ ii ] ) in S )
+
+							def::aia( D[ def::ia( ii, D ) ], ii, S[ ii ] )
+
+						else	delete D[ ii ]
+
+			return i[ 1 ]
+
+		case "untyped":
+
+			return def::aia( D, "", S ) }
+
+	if ( same( D, S ) )
+
+		return i
+
+	if ( i in S )
+
+		return def::iav( i, D, S[ i ] )
+
+	else
+
+		delete D[ i ]
+
+	return i }
+
+#_____________________________________________________
+######################################################
+
+func	let::aia( D, i, S ,ii ) {
+
+	switch ( awk::typeof( i ) ) {
+
+		case "array":
+
+			if ( ! same( D, S ) )
+
+				for ( ii in i )
+
+					if ( isarray( i[ ii ] ) ) {
+
+						if ( ii in S )
+
+							let::aia( D[ let::ia( ii, D ) ], i[ ii ], S[ ii ] ) }
+
+					else	if ( ( ii = i[ ii ] ) in S )
+
+							let::aia( D[ let::ia( ii, D ) ], ii, S[ ii ] )
+
+			return i[ 1 ]
+
+		case "untyped":
+
+			return let::aia( D, "", S ) }
+
+	if ( same( D, S ) )
+
+		return i
+
+	if ( i in S )
+
+		return let::iav( i, D, S[ i ] )
+
+	return i }
+
 #___________________________________________________________
-func	def::ia( i, T , v ,ii,I ) { ##########################
+############################################################
+
+func	def::ia( i, T , v ,ii,I ) {
 
 	switch ( awk::typeof( i ) ) {
 
@@ -495,8 +549,10 @@ func	def::ia( i, T , v ,ii,I ) { ##########################
 
 	return i }
 
-#___________________________________________________________
-func	let::ia( i, T ,ii ) { ################################
+#_____________________________________________________
+######################################################
+
+func	let::ia( i, T ,ii ) {
 
 	switch ( awk::typeof( i ) ) {
 
@@ -530,14 +586,16 @@ func	let::ia( i, T ,ii ) { ################################
 
 	return i }
 
-#___________________________________________________________
-func	del::ia( i, T ,ii ) { ################################
+#_____________________________________________________
+######################################################
 
-	# del:ia() with the given `i in array form: if `i[ ... ] is the subarray
+func	del::ia( i, T ,ii ) {
+
+	# Del:ia() with the given `i in array form: if `i[ ... ] is the subarray
 	# then this subarray will not been deleted but even defined as the subarray
 	# (if its already not) and indexes inside subarray `i[ ... ] will be handled
 	# similary
-	#_____________________________
+	#_______________________
 	
 	switch ( awk::typeof( i ) ) {
 
@@ -547,15 +605,15 @@ func	del::ia( i, T ,ii ) { ################################
 
 				if ( isarray( i[ ii ] ) )
 
-					del::ia( i[ ii ], T[ let::ia( ii, T ) ] )
+					Del::ia( i[ ii ], T[ let::ia( ii, T ) ] )
 
-				else	del::ia( i[ ii ], T )
+				else	Del::ia( i[ ii ], T )
 
 			return i[ 1 ]
 
 		case "untyped":
 
-			return del::ia( "", T ) }
+			return Del::ia( "", T ) }
 
 	if ( i in T )
 
@@ -564,13 +622,15 @@ func	del::ia( i, T ,ii ) { ################################
 	return i }
 
 
-#_________________________________________________________________
-func	mov::aa( D, S ,i ) { #######################################
+#___________________________________________________________
+############################################################
+
+func	mov::aa( D, S ,i ) {
 
 	# D < S
 	# sorted_in ????
 	#	returns -
-	#_____________________________
+	#_______________________
 
 	"" in D in S
 
@@ -618,13 +678,15 @@ func	mov::aa( D, S ,i ) { #######################################
 
 					D[ i ] = S[ i ] } }
 
-#___________________________________________________________
-func	def::aa( D, S ,i ) { #################################
+#_____________________________________________________
+######################################################
+
+func	def::aa( D, S ,i ) {
 
 	# D = S
 	#
 	#	returns -
-	#_____________________________
+	#_______________________
 
 	"" in D in S
 
@@ -656,13 +718,15 @@ func	def::aa( D, S ,i ) { #################################
 
 				D[ i ] = S[ i ] } }
 
-#___________________________________________________________
-func	let::aa( D, S ,i ) { #################################
+#_____________________________________________________
+######################################################
+
+func	let::aa( D, S ,i ) {
 
 	# D << S
 	#
 	#	returns -
-	#_____________________________
+	#_______________________
 
 	"" in D in S
 
@@ -695,15 +759,17 @@ func	let::aa( D, S ,i ) { #################################
 					D[ i ] = S[ i ] } }
 
 
-#_________________________________________________________________
-func	mov::iav( i, A, V ) { ######################################
+#___________________________________________________________
+############################################################
+
+func	mov::iav( i, A, V ) {
 
 	# A[ i ] += V
 	#
 	# if V is untyped then do nothing
 	#
 	#	returns i
-	#_____________________________
+	#_______________________
 
 	switch ( isarray( A[ i ] ) typeof( V ) ) {
 
@@ -739,15 +805,17 @@ func	mov::iav( i, A, V ) { ######################################
 
 			return i } }
 
-#___________________________________________________________
-func	def::iav( i, A, V ) { ################################
+#_____________________________________________________
+######################################################
+
+func	def::iav( i, A, V ) {
 
 	# A[ i ] = V
 	#
 	# if V is untyped then delete A[ i ]
 	#
 	#	returns i
-	#_____________________________
+	#_______________________
 
 	switch ( typeof( V ) ) {
 
@@ -777,15 +845,17 @@ func	def::iav( i, A, V ) { ################################
 
 			return i } }
 
-#___________________________________________________________
-func	let::iav( i, A, V ) { ################################
+#_____________________________________________________
+######################################################
+
+func	let::iav( i, A, V ) {
 
 	# A[ i ] << V
 	#
 	# if V is untyped then do nothing
 	#
 	#	returns i
-	#_____________________________
+	#_______________________
 
 	switch ( isarray( A[ i ] ) typeof( V ) ) {
 
@@ -820,15 +890,17 @@ func	let::iav( i, A, V ) { ################################
 			return i } }
 
 
-#_________________________________________________________________
-func	mov::iai( d, A, s ) { ######################################
+#___________________________________________________________
+############################################################
+
+func	mov::iai( d, A, s ) {
 
 	# A[ d ] < A[ s ]
 	#
 	#	if NOT s in A then do nothing
 	#
 	#	returns d
-	#_____________________________
+	#_______________________
 
 	if ( d == s )
 
@@ -840,15 +912,17 @@ func	mov::iai( d, A, s ) { ######################################
 
 	return d }
 
-#___________________________________________________________
-func	def::iai( d, A, s ) { ################################
+#_____________________________________________________
+######################################################
+
+func	def::iai( d, A, s ) {
 
 	# A[ d ] = A[ s ]
 	#
 	#	if NOT s in A then delete A[ d ]
 	#
 	#	returns d
-	#_____________________________
+	#_______________________
 
 	if ( d == s )
 
@@ -862,15 +936,17 @@ func	def::iai( d, A, s ) { ################################
 
 	return d }
 
-#___________________________________________________________
-func	let::iai( d, A, s ) { ################################
+#_____________________________________________________
+######################################################
+
+func	let::iai( d, A, s ) {
 
 	# A[ d ] ?= A[ s ]
 	#
 	#	if NOT s in A then do nothing
 	#
 	#	returns d
-	#_____________________________
+	#_______________________
 
 	if ( d == s )
 
@@ -886,15 +962,17 @@ func	let::iai( d, A, s ) { ################################
 
 
 
-#_________________________________________________________________
-func	mov::iaia( d, D, s, S ) { ##################################
+#___________________________________________________________
+############################################################
+
+func	mov::iaia( d, D, s, S ) {
 
 	# D[ d ] += S[ s ]
 	#
 	#	if NOT s in S then do nothing
 	#
 	#	returns d
-	#_____________________________
+	#_______________________
 
 	if ( d == s && same( D, S ) )
 
@@ -906,15 +984,17 @@ func	mov::iaia( d, D, s, S ) { ##################################
 
 	return d }
 
-#___________________________________________________________
-func	def::iaia( d, D, s, S ) { ############################
+#_____________________________________________________
+######################################################
+
+func	def::iaia( d, D, s, S ) {
 
 	# D[ d ] = S[ s ]
 	#
 	# if NOT s in S then delete D[ d ]
 	#
 	#	returns d
-	#_____________________________
+	#_______________________
 
 	if ( d == s && same( D, S ) )
 
@@ -928,15 +1008,17 @@ func	def::iaia( d, D, s, S ) { ############################
 
 	return d }
 
-#___________________________________________________________
-func	let::iaia( d, D, s, S ) { ############################
+#_____________________________________________________
+######################################################
+
+func	let::iaia( d, D, s, S ) {
 
 	# D[ d ] ?= S[ s ]
 	# 
 	#	if NOT s in S then do nothing
 	#
 	#	returns d
-	#_____________________________
+	#_______________________
 
 	if ( d == s && same( D, S ) )
 
@@ -951,8 +1033,19 @@ func	let::iaia( d, D, s, S ) { ############################
 	return d }
 
 
-#_________________________________________________________________
-func	same( A, B ,r ) { ##########################################
+#___________________________________________________________
+############################################################
+
+func	symtab( i, v ) {
+
+	if ( i in SYMTAB )
+
+		SYMTAB[ i ] = v }
+
+#_____________________________________________________
+######################################################
+
+func	same( A, B ,r ) {
 
 	# returns 1 in case if array A is the same array as the array B
 	#_____________________________
@@ -969,8 +1062,10 @@ func	same( A, B ,r ) { ##########################################
 
 	return r }
 
-#___________________________________________________________
-func	name( A ,i ) { #######################################
+#_____________________________________________________
+######################################################
+
+func	name( A ,i ) {
 
 	# return name of the global array A
 	#
@@ -1011,8 +1106,10 @@ func	name( A ,i ) { #######################################
 
 	delete A[ NAME_ ] }
 
-#_________________________________________________________________
-func	dump::a( A, n ,r,a,D ) { ###################################
+#___________________________________________________________
+############################################################
+
+func	dump::a( A, n ,r,a,D ) {
 
 	# return text that's is a dump of the given array A
 	#_____________________________
@@ -1199,6 +1296,8 @@ func	dump::a( A, n ,r,a,D ) { ###################################
 
 		func	dumpa_class( p ,t ) {
 
+			return p
+
 			if ( ! ( p in DUMPA_CLASS ) ) {
 
 				t = CLASS[ p ]
@@ -1215,19 +1314,22 @@ func	dump::a( A, n ,r,a,D ) { ###################################
 
 
 
-#___________________________________________________________
-func	dump::ab( A, B ) { ###################################
+#_____________________________________________________
+######################################################
+
+func	dump::ab( A, B ) {
 
 	# return text that's is a dump of the two given arrays
 	#
 	#	not implemented
-	#_____________________________
-
+	#_______________________
 	
 	}
 
-#_________________________________________________________________
-func	ret::a( A,ia,q,s, sp, b,sb ) { #############################
+#___________________________________________________________
+############################################################
+
+func	ret::a( A,ia,q,s, sp, b,sb ) {
 
 	switch ( type2( A, sp ) ) {
 
@@ -1251,18 +1353,24 @@ func	ret::a( A,ia,q,s, sp, b,sb ) { #############################
 
 			return reta_0( sp,b,q,sb ) } }
 
-#___________________________________________________________
-func	ret::ad( A, s,q,a, sp, b,sb ) { ######################
+#_____________________________________________________
+######################################################
+
+func	ret::ad( A, s,q,a, sp, b,sb ) {
 
 	return ret::a( A, a,q,s, sp, b,sb ) }
 
-#___________________________________________________________
-func	ret::as( A, sp, a,q,s, b,sb ) { ######################
+#_____________________________________________________
+######################################################
+
+func	ret::as( A, sp, a,q,s, b,sb ) {
 
 	return ret::a( A, a,q,s, sp, b,sb ) }
 
-#___________________________________________________________
-func	ret::ab( A, B, a,q, b, s,sb, sp ) { ##################
+#_____________________________________________________
+######################################################
+
+func	ret::ab( A, B, a,q, b, s,sb, sp ) {
 
 	if ( sp == "" )
 
@@ -1270,8 +1378,10 @@ func	ret::ab( A, B, a,q, b, s,sb, sp ) { ##################
 
 	return ret::abs( A, B, sp, a, q, b, s, sb ) }
 
-#___________________________________________________________
-func	ret::abs( A, B, sp, a,q, b, s,sb ) { #################
+#_____________________________________________________
+######################################################
+
+func	ret::abs( A, B, sp, a,q, b, s,sb ) {
 
 	if ( sp == "" )
 
@@ -1729,6 +1839,12 @@ func	air64( D, q ,c,s,y ) { ###############################
 
 				delete D[ y++ ] } while ( c-- ) } }
 
+
+
+
+
+
+
 #_________________________________________________________________
 func	typeof( p ) { ##############################################
 
@@ -1780,7 +1896,7 @@ func	_abs( v ) { ##########################################
 #___________________________________________________________
 func	blank( t ) { #########################################
 
-	gsub( /[\x21-\x7E]/, " ", t )
+	gsub( /[\x21-\x7E\x80-\xFF]/, " ", t )
 
 	return t }
 
@@ -1828,8 +1944,6 @@ func	hid( n, c ) { ########################################
 
 BEGIN{
 
-
-
 	defia				= "def::ia"
 	letia				= "let::ia"
 	delia				= "del::ia"
@@ -1863,7 +1977,7 @@ BEGIN{
 	dumpa				= "dump::a"
 	dumpab			= "dump::ab"
 
-	}
+	symtab			= "arr::symtab" }
 
 #_______________________________________________________________________
 ########################################################################
