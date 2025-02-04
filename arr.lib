@@ -253,9 +253,15 @@
 #
 # 1.00 vs 1.1
 #
-#	- bug fixed about retab() ( B[ 0 ] element missed )
+#	- bug fixed about retab():
 #
-#	- funcs dump::a() implemented
+#		- B[ 0 ] element missed
+#
+#		- negative index step error
+#
+#		- zero index step error
+#
+#	- func dump::a() implemented
 #
 # !	- def::ia(), let::ia() and Del::ia() -  parameter `i may be an array providing index structure
 #	(including subindexes) to be defined/deleted
@@ -1470,29 +1476,25 @@ func	retas_0( A, sp, a,q,s, f ,B,D ) { ####################
 #___________________________________________________________
 func	retab_0( A, B, a,q, b, s, sb ,D ) { ##################
 
+	if ( s == "" )
+
+		s = 1
+
+	if ( sb == "" )
+
+		sb = s
+
 	switch ( get_startlen( B, b,q,sb, "b" ) get_startlen( A, a,q,s, "a" ) ) {
 
 		case "AAAA":
 
-			# a == b == s == sb == ""
+			# a == b == q == ""
 
-			if ( I0 != I1 )
+			if ( Q0 < Q1 ) {
 
-				if ( I1 < I0 ) {
+				I0 = I1
 
-					D[ 0 ] = B[ I1 ]
-
-					I1 += S1 }
-
-				else
-
-					if ( --Q0 ) {
-
-						D[ 0 ] = A[ I0 ]
-
-						I0 += S0 }
-
-					else	return A[ I0 ]
+				Q0 = Q1 }
 
 			break
 
@@ -1739,13 +1741,27 @@ func	retab( D, q, A,a,x, B,b,y, s ,f,i ) { ######################
 
 	if ( length( D ) > 1 )
 
-		return s  D[0]  D[1]D[2]D[3]D[4]D[5]D[6]D[7]D[8]D[9]D[10]D[11]D[12]D[13]D[14]D[15]D[16]D[17]D[18]D[19]D[20]D[21]D[22]D[23]D[24]D[25]D[26]D[27]D[28]D[29]D[30]D[31]D[32]D[33]D[34]D[35]D[36]D[37]D[38]D[39]D[40]D[41]D[42]D[43]D[44]D[45]D[46]D[47]D[48]D[49]D[50]D[51]D[52]D[53]D[54]D[55]D[56]D[57]D[58]D[59]D[60]D[61]D[62]D[63] 	#  xdup 64 [0-9]+
+		if ( y >= 0 )
+
+			return s  D[0]  D[1]D[2]D[3]D[4]D[5]D[6]D[7]D[8]D[9]D[10]D[11]D[12]D[13]D[14]D[15]D[16]D[17]D[18]D[19]D[20]D[21]D[22]D[23]D[24]D[25]D[26]D[27]D[28]D[29]D[30]D[31]D[32]D[33]D[34]D[35]D[36]D[37]D[38]D[39]D[40]D[41]D[42]D[43]D[44]D[45]D[46]D[47]D[48]D[49]D[50]D[51]D[52]D[53]D[54]D[55]D[56]D[57]D[58]D[59]D[60]D[61]D[62]D[63] 		#  xdup 64 [0-9]+
+
+		else
+
+			return  D[0]  D[1]D[2]D[3]D[4]D[5]D[6]D[7]D[8]D[9]D[10]D[11]D[12]D[13]D[14]D[15]D[16]D[17]D[18]D[19]D[20]D[21]D[22]D[23]D[24]D[25]D[26]D[27]D[28]D[29]D[30]D[31]D[32]D[33]D[34]D[35]D[36]D[37]D[38]D[39]D[40]D[41]D[42]D[43]D[44]D[45]D[46]D[47]D[48]D[49]D[50]D[51]D[52]D[53]D[54]D[55]D[56]D[57]D[58]D[59]D[60]D[61]D[62]D[63]  s 	#  xdup 64 [0-9]+
 
 	if ( length( s ) )
 
-		return s D[ 0 ]
+		if ( y >= 0 )
 
-	else	return D[ 0 ] }
+			return s D[ 0 ]
+
+		else
+
+			return D[ 0 ] s
+
+	else
+
+		return D[ 0 ] }
 	#_____________________________
 
 	func retab_1( A,a,x, B,b,y, f ) {
