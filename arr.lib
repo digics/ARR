@@ -1428,9 +1428,6 @@ func	reta_0( A, a,q,s, f ,a0,D ) { ##############################
 
 		a += S0 }
 
-	print "HREE: " q "'"
-
-
 	if ( 64 > q = rshift( Q0, 1 ) )
 
 		if ( q ) {
