@@ -1428,6 +1428,9 @@ func	reta_0( A, a,q,s, f ,a0,D ) { ##############################
 
 		a += S0 }
 
+	print "HREE: " q "'"
+
+
 	if ( 64 > q = rshift( Q0, 1 ) )
 
 		if ( q ) {
@@ -1639,11 +1642,7 @@ func	get_startlen( A, i,q,s, f ) { ##############################
 
 		R0 = R0 "1"
 
-		q = I0 + q - 1
-
-		if ( q > L0 )
-
-			q = L0 }
+		q = I0 + q - 1 }
 
 	q = _abs( q - I0 )
 
@@ -1651,7 +1650,9 @@ func	get_startlen( A, i,q,s, f ) { ##############################
 
 		Q0 = int( q / _abs( S0 ) ) + 1 
 
-	else	Q0 = q
+	else
+
+		Q0 = q + 1
 
 	return R0 }
 
