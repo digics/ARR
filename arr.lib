@@ -1049,6 +1049,15 @@ func	symtab( i, v ) {
 		SYMTAB[ i ] = v }
 
 #_____________________________________________________
+func	sorted_in( v ,r ) { ############################
+
+	r = PROCINFO[ "sorted_in" ]
+
+	PROCINFO[ "sorted_in" ] = v
+
+	return r }
+
+#_____________________________________________________
 ######################################################
 
 func	same( A, B ,r ) {
@@ -1140,29 +1149,27 @@ func	dump::a( A, n ,r,a,D ) {
 
 	#_______________________
 
-	if ( sub( /^~/, "", n ) ) {
+	if ( a = index( n, "~" ) ) {
 
-		r = n; n = "" }
+		r = substr( n, a + 1 )
 
-	else	r = ""
-
+		n = substr( n, 1, a - 1 ) }
 	#_______________________
 
 	if ( n == "" )
 
 		n = name( A )
-
 	#_______________________
 
 	if ( length( A ) ) {
 
 		"" in D
 
-		#a = sorted_in( NS_ "dumpa_sort" )
+		a = sorted_in( NS_ "dumpa_sort" )
 
 		dumpa_0( D, A, n, 1, r )
 
-		#sorted_in( a )
+		sorted_in( a )
 
 		return ret::a( D ) }
 
@@ -1170,51 +1177,71 @@ func	dump::a( A, n ,r,a,D ) {
 
 	#_____________________________
 
-	func	dumpa_sort( i1, v1, i2, v2 ) {
+	func	dumpa_sort( i1, v1, i2, v2 ,i ) {
 
-		}
+		if ( i1 == i1 + 0 )
+
+			if ( i2 == i = i2 + 0 )
+
+				if ( i > i1 + 0 )
+
+					return -1
+
+				else
+
+					return 1
+
+		if ( i1 > i2 )
+
+			return 1
+
+		return -1 }
 
 	#_____________________________
 
-	func	dumpa_0( D, A, px, f, r ,i,x ) { 
+	func	dumpa_0( D, A, px, f, r ,i,x ) {
 
-		for ( i in A ) {
+		for ( i in A )
 
-			if ( i !~ r )
+			if ( i ~ r ) {
 
-				continue
+				x = px "[ " dumpa_idx( i ) " ]"
 
-			x = px "[ " dumpa_idx( i ) " ]"
+				if ( f ) {
 
-			if ( f ) {
+					f = 0
 
-				f = 0
+					px = blank( px ) }
 
-				px = blank( px ) }
+				switch ( typeof( A[ i ] ) ) {
 
-			switch ( typeof( A[ i ] ) ) {
+					case "array":
 
-				case "array":
+						if ( length( A[ i ] ) )
 
-					if ( length( A[ i ] ) )
+							dumpa_0( D, A[ i ], x, 1 )
 
-						dumpa_0( D, A[ i ], x, 1, r )
+						else
 
-					else
+							D[ length( D ) ] = ln( x )
 
-						D[ length( D ) ] = ln( x )
+						continue
 
-					continue
+					case "untyped":
 
-				case "untyped":
+						D[ length( D ) ] = ln( x " ?" )
 
-					D[ length( D ) ] = ln( x " ?" )
+						continue
 
-					continue
+					case "regexp":
 
-				default:
+						D[ length( D ) ] = ln( x " ~ " dumpa_val( A[ i ] ) )
 
-					D[ length( D ) ] = ln( x " = " dumpa_val( A[ i ] ) ) } } }
+						continue
+
+					default:
+
+						D[ length( D ) ] = ln( x " = " dumpa_val( A[ i ] ) ) } } }
 
 		#_______________________
 
@@ -1264,7 +1291,7 @@ func	dump::a( A, n ,r,a,D ) {
 
 				case "regexp":
 
-					return "~/" v "/"
+					return v "'"
 
 				case "unassigned":
 
@@ -1912,14 +1939,7 @@ func	blank( t ) { #########################################
 
 	return t }
 
-#___________________________________________________________
-func	sorted_in( v ,r ) { ##################################
 
-	r = PROCINFO[ "sorted_in" ]
-
-	PROCINFO[ "sorted_in" ] = v
-
-	return r }
 
 #___________________________________________________________
 func	ln( t ) { ############################################
@@ -1989,7 +2009,8 @@ BEGIN{
 	dumpa				= "dump::a"
 	dumpab			= "dump::ab"
 
-	symtab			= "arr::symtab" }
+	symtab			= "arr::symtab"
+	sorted_in			= "arr::sorted_in" }
 
 #_______________________________________________________________________
 ########################################################################
